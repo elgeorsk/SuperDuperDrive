@@ -33,8 +33,9 @@ class CloudStorageApplicationTests {
 	}
 
 	@Test
-	public void getLoginPage() {
+	public void getLoginPage() throws InterruptedException {
 		driver.get("http://localhost:" + this.port + "/login");
+		Thread.sleep(5000);
 		Assertions.assertEquals("Login", driver.getTitle());
 	}
 
