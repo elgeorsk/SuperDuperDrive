@@ -7,6 +7,8 @@ public class Notes {
     private String noteDescription;
     private Long userId;
 
+    public Notes(){}
+
     public Notes(Long noteId, String noteTitle, String noteDescription, Long userId) {
         this.noteId = noteId;
         this.noteTitle = noteTitle;
