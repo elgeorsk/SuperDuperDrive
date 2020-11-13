@@ -10,7 +10,7 @@
         <title>Home - Super Duper Drive</title>
     </head>
     <body class="p-3 mb-2 bg-light text-black">
-        <div class="container">
+        <div class="container p-3">
             <nav class="navbar navbar-light bg-light">
                 <a class="navbar-brand" th:href="@{/home}"><img th:src="@{/images/logo.svg}" width="30" height="30" alt=""> Super Duper Drive</a>
                 <form action="#" th:action="@{/logout}" method="POST">
@@ -29,7 +29,7 @@
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade" th:classappend="show + ${#strings.equals(activeTab, 'files') ? ' active' : ''}" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
-                        <form action="#" enctype="multipart/form-data" method="POST">
+                        <form action="#" th:action="@{/upload}" enctype="multipart/form-data" method="POST">
                             <div class="container">
                                 <div class="row" style="margin: 1em;">
                                     <div class="col-sm-2">
@@ -39,7 +39,7 @@
                                         <input type="file" class="form-control-file" id="fileUpload" name="fileUpload">
                                     </div>
                                     <div class="col-sm-4">
-                                        <button type="submit" class="btn btn-dark"><span><i class="fas fa-cloud-upload-alt"></i></span> Upload</button>
+                                        <button type="submit" class="btn btn-dark float-right"><span><i class="fas fa-cloud-upload-alt"></i></span> Upload</button>
                                     </div>
                                 </div>
                             </div>
