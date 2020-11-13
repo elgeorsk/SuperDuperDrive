@@ -3,24 +3,27 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
         <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
-
-        <title>Sign Up</title>
+        <link rel="stylesheet" th:href="@{/css/myStyle.css}">
+        <script src="https://kit.fontawesome.com/ab29a89efe.js" crossorigin="anonymous"></script>
+        <title>Sign Up - Super Duper Drive</title>
     </head>
     <body class="p-3 mb-2 bg-light text-black">
-        <div class="container justify-content-center w-50 p-3" style="background-color: #eeeeee; margin-top: 5em;">
-            <div class="form-group">
-                <label><a id="back-to-link" th:href="@{/login}">Back to Login</a></label>
+        <div class="container justify-content-center w-25 p-3">
+                <a th:href="@{/login}" class="unlink">
+                    <img th:src="@{/images/logo.svg}" class="rounded mx-auto d-block h-25 w-25">
+                    <h1 class="display-5 text-center">Super Duper Drive</h1>
+                </a>
             </div>
-
-            <h1 class="display-5">Sign Up</h1>
+        <div class="container justify-content-center rounded w-50" style="background-color: #eeeeee;">
+            <h2 class="display-5 text-center p-3">Create an account</h2>
             <form action="#" th:action="@{/signup}" method="POST">
-                <div id="success-msg" th:if="${signupSuccess}" class="alert alert-success">
-                    You successfully signed up! Please continue to the <a id="login-link" th:href="@{/login}">login</a> page.
+                <div id="success-msg" th:if="${signupSuccess}" class="alert alert-success" role="alert">
+                    <span><i class="fas fa-info-circle"></i> You successfully signed up! Please continue to the <a id="login-link" th:href="@{/login}">login</a>
+                        page.</span>
                 </div>
-                <div id="error-msg" th:if="${signupError}" class="alert alert-danger">
-                    <span>Example Signup Error Message</span>
+                <div id="error-msg" th:if="${signupError}" class="alert alert-danger" role="alert">
+                    <span><i class="fas fa-times"></i> <span th:text="${signupError}"></span></span>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -34,15 +37,35 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputUsername">Username</label>
-                        <input type="input" name="username" class="form-control" id="inputUsername" placeholder="Enter Username" maxlength="20" required>
+                        <label class="col-form-label" for="inputUsername">Username</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="input" class="form-control col-form-label" name="username" id="inputUsername"
+                                   placeholder="Enter Username" maxlength="20" required>
+                        </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputPassword">Password</label>
-                        <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Enter Password" maxlength="20" required>
+                        <label class="col-form-label" for="inputPassword">Password</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <input type="password" class="form-control" name="password" id="inputPassword"
+                                   placeholder="Enter Password" maxlength="20" required>
+                        </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <div class="form-row">
+                    <div class="form-group col-md-7">
+                        <label class="col-form-label"><strong>Have already an account?
+                            <a id="login-link" th:href="@{/login}">Login</a></strong></label>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <button id="submit-button" type="submit" class="btn btn-primary float-right">Sign Up</button>
+                    </div>
+                </div>
             </form>
         </div>
     </body>
