@@ -3,23 +3,24 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+        <link rel="icon" type="image/png" th:href="@{/images/logo.png}"/>
         <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
-
-        <title>Result</title>
+        <link rel="stylesheet" th:href="@{/css/myStyle.css}">
+        <script src="https://kit.fontawesome.com/ab29a89efe.js" crossorigin="anonymous"></script>
+        <title>Result - Super Duper Drive</title>
     </head>
     <body class="p-3 mb-2 bg-light text-black">
         <div class="container justify-content-center w-50 p-3" style="margin-top: 5em;">
             <div th:if="${param.success}" class="alert alert-success fill-parent">
-                <h1 class="display-5">Success</h1>
+                <h1 class="display-5"><span><i class="fas fa-check-circle"></i></span> Success</h1>
                 <span>Your changes were successfully saved. Click <a th:href="@{/home}">here</a> to continue.</span>
             </div>
             <div th:if="${param.error}" class="alert alert-danger fill-parent">
-                <h1 class="display-5">Error</h1>
+                <h1 class="display-5"><span><i class="fas fa-times"></i></span> Error</h1>
                 <span>Your changes were not saved. Click <a th:href="@{/home}">here</a> to continue.</span>
             </div>
             <div th:if="${param.error}" class="alert alert-danger fill-parent">
-                <h1 class="display-5">Error</h1>
+                <h1 class="display-5"><span><i class="fas fa-times"></i></span> Error</h1>
                 <span>Changes Not Saved</span>
                 <span>Click <a th:href="@{/home}">here</a> to continue.</span>
             </div>

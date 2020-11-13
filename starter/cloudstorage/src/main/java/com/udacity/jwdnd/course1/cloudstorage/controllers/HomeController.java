@@ -48,7 +48,7 @@ public class HomeController {
         } else {
             noteService.createNewNote(auth.getName(), note);
         }
-        model.addAttribute("activeTab", "notes");
+        activeTab = "notes";
         return "redirect:/result?success";
     }
 
