@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/signup", "/css/**", "/js/**", "/images/**").permitAll()
+                .antMatchers("/signup", "/css/**", "/js/**", "/images/**", "/h2/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -43,13 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .permitAll();
 
-        /*http.formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/chat", true)
-                .permitAll();*/
+        // access h2
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
 
-        //http.logout()
-        //.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-        //.logoutSuccessUrl("/login");
     }
 }

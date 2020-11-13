@@ -55,8 +55,8 @@
                                 <tbody>
                                 <tr th:each="files : ${allFiles}">
                                     <td>
-                                        <a target="_blank" class="btn btn-success"><span><i class="fas fa-cloud-download-alt"></i></span> Download</a>
-                                        <a  class="btn btn-danger"><span><i class="far fa-trash-alt"></i></span> Delete</a>
+                                        <a target="_blank" class="btn btn-success"><span><i class="fas fa-cloud-download-alt"></i></span> View</a>
+                                        <a th:href="@{/files/delete(id=${files.fileId})}" class="btn btn-danger"><span><i class="far fa-trash-alt"></i></span> Delete</a>
                                     </td>
                                     <th th:text="${files.filename}" scope="row">ExampleFile.txt</th>
                                 </tr>
@@ -81,7 +81,7 @@
                                     <tr th:each="notes : ${allNotes}">
                                         <td>
                                             <button type="button" class="btn btn-success" th:onclick="javascript:showNoteModal([[${notes}]])"><span><i class="far fa-edit"></i></span> Edit</button>
-                                            <a name = "delete" th:href="@{/notes/delete(id=${notes.noteId})}" class="btn btn-danger"><span><i class="far fa-trash-alt"></i></span> Delete</a>
+                                            <a th:href="@{/notes/delete(id=${notes.noteId})}" class="btn btn-danger"><span><i class="far fa-trash-alt"></i></span> Delete</a>
                                         </td>
                                         <th th:text="${notes.noteTitle}" scope="row">Example Note Title</th>
                                         <td th:text="${notes.noteDescription}">Example Note Description </td>
@@ -113,8 +113,8 @@
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button id = "save-changes" type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();">Save changes</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><span><i class="fas fa-times"></i></span> Close</button>
+                                        <button id = "save-changes" type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();"><span><i class="fas fa-save"></i></span> Save</button>
                                     </div>
                                 </div>
                             </div>

@@ -9,6 +9,9 @@ public class Files {
     private byte[] fileData;
     private Long userId;
 
+    public Files() {
+    }
+
     public Files(Long fileId, String filename, String contentType, String fileSize, byte[] fileData, Long userId) {
         this.fileId = fileId;
         this.filename = filename;

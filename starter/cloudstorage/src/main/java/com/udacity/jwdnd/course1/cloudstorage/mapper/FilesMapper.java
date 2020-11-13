@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface FilesMapper {
-    @Insert("INSERT INTO FILES( filename,contentType, fileSize, fileData, userId) " +
+    @Insert("INSERT INTO FILES( filename, contentType, fileSize, fileData, userId) " +
             "VALUES (#{filename}, #{contentType}, #{fileSize}, #{fileData}, #{userId})")
     @Options(useGeneratedKeys = true, keyProperty = "fileId")
     int insertFile(Files file);
@@ -15,7 +15,7 @@ public interface FilesMapper {
     @Select("SELECT * FROM FILES WHERE fileId = #{fileId}")
     Files getFileById(Long fileId);
 
-    @Select("SELECT * FROM FILES where userId = #{userId}")
+    @Select("SELECT fileId,filename FROM FILES where userId = #{userId}")
     List<Files> getAllFiles(Long userId);
 
     @Delete("DELETE FROM FILES WHERE fileId = #{fileId}")
