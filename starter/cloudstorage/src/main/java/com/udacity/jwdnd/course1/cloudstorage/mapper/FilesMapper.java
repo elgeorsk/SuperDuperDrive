@@ -15,7 +15,7 @@ public interface FilesMapper {
     @Select("SELECT * FROM FILES WHERE fileId = #{fileId}")
     Files getFileById(Long fileId);
 
-    @Select("SELECT fileId,filename FROM FILES where userId = #{userId}")
+    @Select("SELECT * FROM FILES where userId = #{userId}")
     List<Files> getAllFiles(Long userId);
 
     @Delete("DELETE FROM FILES WHERE fileId = #{fileId}")

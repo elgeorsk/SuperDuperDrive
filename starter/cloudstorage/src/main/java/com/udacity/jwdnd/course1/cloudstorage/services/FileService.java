@@ -40,6 +40,10 @@ public class FileService {
         return -1;
     }
 
+    public Files getFileById(Long fileId){
+        return filesMapper.getFileById(fileId);
+    }
+
     public void deleteFile(Long fileId){
         filesMapper.delete(fileId);
     }

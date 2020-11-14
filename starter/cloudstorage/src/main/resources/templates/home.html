@@ -29,7 +29,7 @@
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade" th:classappend="show + ${#strings.equals(activeTab, 'files') ? ' active' : ''}" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
-                        <form action="#" th:action="@{/upload}" enctype="multipart/form-data" method="POST">
+                        <form action="#" th:action="@{/files/upload}" enctype="multipart/form-data" method="POST">
                             <div class="container">
                                 <div class="row" style="margin: 1em;">
                                     <div class="col-sm-2">
@@ -54,11 +54,11 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="files : ${allFiles}">
-                                    <td>
-                                        <a target="_blank" class="btn btn-success"><span><i class="fas fa-cloud-download-alt"></i></span> View</a>
+                                    <td class="align-middle" >
+                                        <a th:href='${files.filename}' target="_blank" class="btn btn-success"><span><i class="fas fa-cloud-download-alt"></i></span> View</a>
                                         <a th:href="@{/files/delete(id=${files.fileId})}" class="btn btn-danger"><span><i class="far fa-trash-alt"></i></span> Delete</a>
                                     </td>
-                                    <th th:text="${files.filename}" scope="row">ExampleFile.txt</th>
+                                    <th class="align-middle" th:text="${files.filename}" scope="row">ExampleFile.txt</th>
                                 </tr>
                                 </tbody>
                             </table>
@@ -79,12 +79,13 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="notes : ${allNotes}">
-                                        <td>
+                                        <td class="align-middle">
                                             <button type="button" class="btn btn-success" th:onclick="javascript:showNoteModal([[${notes}]])"><span><i class="far fa-edit"></i></span> Edit</button>
                                             <a th:href="@{/notes/delete(id=${notes.noteId})}" class="btn btn-danger"><span><i class="far fa-trash-alt"></i></span> Delete</a>
                                         </td>
-                                        <th th:text="${notes.noteTitle}" scope="row">Example Note Title</th>
-                                        <td th:text="${notes.noteDescription}">Example Note Description </td>
+                                        <th class="align-middle" th:text="${notes.noteTitle}" scope="row"></th>
+                                        <td class="align-middle" th:if="${notes.noteDescription.length() gt 60}" th:text="${notes.noteDescription.substring(0, 50) + '...'}"></td>
+                                        <td class="align-middle" th:unless="${notes.noteDescription.length() gt 60}" th:text="${notes.noteDescription}"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -136,13 +137,16 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="credentials : ${allCredentials}">
-                                        <td>
+                                        <td class="align-middle">
                                             <button  type="button" class="btn btn-success" th:onclick="showCredentialModal([[${credentials}]],[[${credentialService.decryptPassword(credentials)}]])"><span><i class="far fa-edit"></i></span> Edit</button>
                                             <a class="btn btn-danger" th:href="@{/credentials/delete(id=${credentials.credentialId})}"><span><i class="far fa-trash-alt"></i></span> Delete</a>
                                         </td>
-                                        <th th:text="${credentials.url}" scope="row">Example Credential URL</th>
-                                        <td th:text="${credentials.username}">Example Credential Username</td>
-                                        <td th:text="${credentials.password}">Example Credential Password</td>
+                                        <th class="align-middle" scope="row"><a th:href="${credentials.url}" th:text="${credentials.url}"></a></th>
+                                        <td class="align-middle" th:text="${credentials.username}"></td>
+                                        <td class="align-middle" th:text="${credentials.password.substring(0, 10) + '...'}"></td>
+                                        <td class="align-middle">
+                                            <button  type="button" class="btn btn-success" th:onclick="copyToClipboard([[${credentialService.decryptPassword(credentials)}]])"><span><i class="fas fa-copy"></i></span> Copy</button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -176,8 +180,8 @@
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">Save changes</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><span><i class="fas fa-times"></i></span> Close</button>
+                                        <button type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();"><span><i class="fas fa-save"></i></span> Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -190,9 +194,19 @@
         <script th:src="@{/js/jquery-slim.min.js}"></script>
         <script th:src="@{/js/popper.min.js}"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>
-
-        <!--For opening the note modal-->
         <script type="text/javascript">
+            // Copy to clipboard
+            function copyToClipboard(password) {
+                var $temp = $("<input>");
+                $("body").append($temp);
+                $temp.val(password).select();
+                document.execCommand("copy");
+                $temp.remove();
+
+                /* Alert the copied text */
+                alert("Password copied!");
+            }
+
             // For opening the note modal
             function showNoteModal(note) {
                 $('#note-id').val(note && note.noteId ? note.noteId : 0);

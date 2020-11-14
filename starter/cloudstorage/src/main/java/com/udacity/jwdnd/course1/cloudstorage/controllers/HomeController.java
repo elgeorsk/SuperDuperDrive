@@ -1,7 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
 import com.udacity.jwdnd.course1.cloudstorage.models.Credentials;
-import com.udacity.jwdnd.course1.cloudstorage.models.Files;
 import com.udacity.jwdnd.course1.cloudstorage.models.Notes;
 import com.udacity.jwdnd.course1.cloudstorage.services.*;
 import org.springframework.security.core.Authentication;
@@ -9,21 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-
 
 @Controller
 public class HomeController {
 
     private NoteService noteService;
-    private UserService userService;
     private CredentialsService credentialService;
     private FileService fileService;
     private String activeTab = "files";
 
-    public HomeController(NoteService notesService, UserService userService, CredentialsService credentialService, FileService fileService) {
-        this.userService = userService;
+    public HomeController(NoteService notesService, CredentialsService credentialService, FileService fileService) {
         this.fileService = fileService;
         this.noteService = notesService;
         this.credentialService = credentialService;
@@ -46,8 +40,8 @@ public class HomeController {
     }
 
     // Files tab
-    @PostMapping("/upload")
-    public String fileUpload(@RequestParam("fileUpload") MultipartFile fileUpload, Authentication auth, Files files, Model model) {
+    @PostMapping("/files/upload")
+    public String fileUpload(@RequestParam("fileUpload") MultipartFile fileUpload, Authentication auth) {
 
         if (fileUpload.isEmpty()) {
             activeTab = "files";
@@ -55,7 +49,6 @@ public class HomeController {
         }
 
         fileService.createNewFile(auth.getName(), fileUpload);
-
         activeTab = "files";
         return "redirect:/result?success";
     }
@@ -74,7 +67,7 @@ public class HomeController {
 
     // Notes tab
     @PostMapping("/notes")
-    public String createOrUpdateNote(Authentication auth, Notes note, Model model) {
+    public String createOrUpdateNote(Authentication auth, Notes note) {
         if (note.getNoteId() > 0) {
             noteService.updateNote(note);
         } else {
@@ -85,7 +78,7 @@ public class HomeController {
     }
 
     @GetMapping("/notes/delete")
-    public String deleteNote(@RequestParam("id") Long noteId, Model model) {
+    public String deleteNote(@RequestParam("id") Long noteId) {
         if (noteId > 0) {
             noteService.deleteNote(noteId);
             activeTab = "notes";
@@ -118,6 +111,5 @@ public class HomeController {
         activeTab = "credentials";
         return "redirect:/result?error";
     }
-
     // End Credentials tab
 }

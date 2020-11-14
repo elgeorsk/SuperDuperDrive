@@ -21,7 +21,8 @@
             <form action="#" th:action="@{/signup}" method="POST">
                 <div id="success-msg" th:if="${signupSuccess}" class="alert alert-success" role="alert">
                     <span><i class="fas fa-info-circle"></i> You successfully signed up! Please continue to the <a id="login-link" th:href="@{/login}">login</a>
-                        page.</span>
+                        page. Page redirects after 3 seconds.</span>
+                    <script type="text/javascript">setTimeout(function () {window.location = "/login";}, 3000);</script>
                 </div>
                 <div id="error-msg" th:if="${signupError}" class="alert alert-danger" role="alert">
                     <span><i class="fas fa-times"></i> <span th:text="${signupError}"></span></span>
@@ -29,11 +30,11 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputFirstName">First Name</label>
-                        <input type="input" name="firstName" class="form-control" id="inputFirstName" placeholder="Enter First Name" maxlength="20" required>
+                        <input type="input" name="firstname" class="form-control" id="inputFirstName" placeholder="Enter First Name" maxlength="20" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputLastName">Last Name</label>
-                        <input type="input" name="lastName" class="form-control" id="inputLastName" placeholder="Enter Last Name" maxlength="20" required>
+                        <input type="input" name="lastname" class="form-control" id="inputLastName" placeholder="Enter Last Name" maxlength="20" required>
                     </div>
                 </div>
                 <div class="form-row">
@@ -41,7 +42,7 @@
                         <label class="col-form-label" for="inputUsername">Username</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
                             <input type="input" class="form-control col-form-label" name="username" id="inputUsername"
                                    placeholder="Enter Username" maxlength="20" required>
