@@ -11,6 +11,9 @@ public interface NotesMapper {
     @Select("SELECT * FROM NOTES where userId = #{userId}")
     List<Notes> getAllNotes(Long userId);
 
+    @Select("SELECT * FROM NOTES where noteId = #{noteId} and userId = #{userId}")
+    Notes getNoteByIds(Long noteId, Long userId);
+
     @Insert("INSERT INTO NOTES(noteTitle, noteDescription, userId) VALUES (" +
             "#{noteTitle}, #{noteDescription}, #{userId})")
     @Options(useGeneratedKeys = true, keyProperty = "noteId")

@@ -14,7 +14,7 @@
             <nav class="navbar navbar-light bg-light">
                 <a class="navbar-brand" th:href="@{/home}"><img th:src="@{/images/logo.svg}" width="30" height="30" alt=""> Super Duper Drive</a>
                 <form action="#" th:action="@{/logout}" method="POST">
-                <button type="submit" class="btn btn-outline-danger float-right"><span><i class="fas fa-sign-out-alt"></i></span> Logout</button>
+                <button id="logout" type="submit" class="btn btn-outline-danger float-right"><span><i class="fas fa-sign-out-alt"></i></span> Logout</button>
             </form>
             </nav>
         </div>
@@ -36,10 +36,10 @@
                                         <label for="fileUpload">Upload a New File:</label>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="file" class="form-control-file" id="fileUpload" name="fileUpload">
+                                        <input type="file" class="form-control-file" id="fileUpload" name="fileUpload" onchange="ValidateSize(this)">
                                     </div>
                                     <div class="col-sm-4">
-                                        <button type="submit" class="btn btn-dark float-right"><span><i class="fas fa-cloud-upload-alt"></i></span> Upload</button>
+                                        <button id="upload-file-button" type="submit" class="btn btn-dark float-right"><span><i class="fas fa-cloud-upload-alt"></i></span> Upload</button>
                                     </div>
                                 </div>
                             </div>
@@ -55,17 +55,17 @@
                                 <tbody>
                                 <tr th:each="files : ${allFiles}">
                                     <td class="align-middle" >
-                                        <a th:href='${files.filename}' target="_blank" class="btn btn-success"><span><i class="fas fa-cloud-download-alt"></i></span> View</a>
-                                        <a th:href="@{/files/delete(id=${files.fileId})}" class="btn btn-danger"><span><i class="far fa-trash-alt"></i></span> Delete</a>
+                                        <a id="view-file" th:href='@{/files/download(id=${files.fileId})}' target="_blank" class="btn btn-success"><span><i class="fas fa-cloud-download-alt"></i></span> View</a>
+                                        <a id="delete-file" th:href="@{/files/delete(id=${files.fileId})}" class="btn btn-danger"><span><i class="far fa-trash-alt"></i></span> Delete</a>
                                     </td>
-                                    <th class="align-middle" th:text="${files.filename}" scope="row">ExampleFile.txt</th>
+                                    <th id="name-file" class="align-middle" th:text="${files.filename}" scope="row">ExampleFile.txt</th>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="tab-pane fade" th:classappend="show + ${#strings.equals(activeTab, 'notes') ? ' active' : ''}" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
-                        <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showNoteModal()">
+                        <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" id="add-notes" onclick="showNoteModal()">
                             <span><i class="fas fa-plus"></i></span> Add a New Note
                         </button>
                         <div th:if="${!allNotes.isEmpty()}" class="table-responsive">
@@ -80,10 +80,10 @@
                                 <tbody>
                                     <tr th:each="notes : ${allNotes}">
                                         <td class="align-middle">
-                                            <button type="button" class="btn btn-success" th:onclick="javascript:showNoteModal([[${notes}]])"><span><i class="far fa-edit"></i></span> Edit</button>
-                                            <a th:href="@{/notes/delete(id=${notes.noteId})}" class="btn btn-danger"><span><i class="far fa-trash-alt"></i></span> Delete</a>
+                                            <button id="edit-notes" type="button" class="btn btn-success" th:onclick="javascript:showNoteModal([[${notes}]])"><span><i class="far fa-edit"></i></span> Edit</button>
+                                            <a id="delete-notes" th:href="@{/notes/delete(id=${notes.noteId})}" class="btn btn-danger"><span><i class="far fa-trash-alt"></i></span> Delete</a>
                                         </td>
-                                        <th class="align-middle" th:text="${notes.noteTitle}" scope="row"></th>
+                                        <th id="notes-noteTitle" class="align-middle" th:text="${notes.noteTitle}" scope="row"></th>
                                         <td class="align-middle" th:if="${notes.noteDescription.length() gt 60}" th:text="${notes.noteDescription.substring(0, 50) + '...'}"></td>
                                         <td class="align-middle" th:unless="${notes.noteDescription.length() gt 60}" th:text="${notes.noteDescription}"></td>
                                     </tr>
@@ -115,14 +115,14 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><span><i class="fas fa-times"></i></span> Close</button>
-                                        <button id = "save-changes" type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();"><span><i class="fas fa-save"></i></span> Save</button>
+                                        <button id = "save-note-changes" type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();"><span><i class="fas fa-save"></i></span> Save</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" th:classappend="show + ${#strings.equals(activeTab, 'credentials') ? ' active' : ''}" id="nav-credentials" role="tabpanel" aria-labelledby="nav-credentials-tab">
-                        <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showCredentialModal()">
+                        <button id="add-credential" style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showCredentialModal()">
                             <span><i class="fas fa-plus"></i></span> Add a New Credential
                         </button>
                         <div th:if="${!allCredentials.isEmpty()}" class="table-responsive">
@@ -138,10 +138,10 @@
                                 <tbody>
                                     <tr th:each="credentials : ${allCredentials}">
                                         <td class="align-middle">
-                                            <button  type="button" class="btn btn-success" th:onclick="showCredentialModal([[${credentials}]],[[${credentialService.decryptPassword(credentials)}]])"><span><i class="far fa-edit"></i></span> Edit</button>
-                                            <a class="btn btn-danger" th:href="@{/credentials/delete(id=${credentials.credentialId})}"><span><i class="far fa-trash-alt"></i></span> Delete</a>
+                                            <button  type="button" id="edit-credentials" class="btn btn-success" th:onclick="showCredentialModal([[${credentials}]],[[${credentialService.decryptPassword(credentials)}]])"><span><i class="far fa-edit"></i></span> Edit</button>
+                                            <a class="btn btn-danger" id="delete-credentials" th:href="@{/credentials/delete(id=${credentials.credentialId})}"><span><i class="far fa-trash-alt"></i></span> Delete</a>
                                         </td>
-                                        <th class="align-middle" scope="row"><a th:href="${credentials.url}" th:text="${credentials.url}"></a></th>
+                                        <th id="credentials-allUrls" class="align-middle" scope="row"><a th:href="${credentials.url}" th:text="${credentials.url}"></a></th>
                                         <td class="align-middle" th:text="${credentials.username}"></td>
                                         <td class="align-middle" th:text="${credentials.password.substring(0, 10) + '...'}"></td>
                                         <td class="align-middle">
@@ -181,7 +181,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><span><i class="fas fa-times"></i></span> Close</button>
-                                        <button type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();"><span><i class="fas fa-save"></i></span> Save</button>
+                                        <button id="save-credential" type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();"><span><i class="fas fa-save"></i></span> Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -195,6 +195,14 @@
         <script th:src="@{/js/popper.min.js}"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>
         <script type="text/javascript">
+            function ValidateSize(fileUpload) {
+                var fileSize = fileUpload.files[0].size/1024/1024;
+                if(fileSize > 10){
+                    alert("File is more than 10MB");
+                    this.value = "";
+                }
+            }
+
             // Copy to clipboard
             function copyToClipboard(password) {
                 var $temp = $("<input>");

@@ -34,5 +34,53 @@ public class LoginPage {
         this.passwordTextField.sendKeys(password);
         this.submitButton.click();
     }
+
+    public WebElement getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(WebElement errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public WebElement getLogoutMessage() {
+        return logoutMessage;
+    }
+
+    public void setLogoutMessage(WebElement logoutMessage) {
+        this.logoutMessage = logoutMessage;
+    }
+
+    public WebElement getUsernameTextField() {
+        return usernameTextField;
+    }
+
+    public void setUsernameTextField(WebElement usernameTextField) {
+        this.usernameTextField = usernameTextField;
+    }
+
+    public WebElement getPasswordTextField() {
+        return passwordTextField;
+    }
+
+    public void setPasswordTextField(WebElement passwordTextField) {
+        this.passwordTextField = passwordTextField;
+    }
+
+    public WebElement getSubmitButton() {
+        return submitButton;
+    }
+
+    public void setSubmitButton(WebElement submitButton) {
+        this.submitButton = submitButton;
+    }
+
+    public WebElement getSignUpLink() {
+        return signUpLink;
+    }
+
+    public void setSignUpLink(WebElement signUpLink) {
+        this.signUpLink = signUpLink;
+    }
 }
 

@@ -11,6 +11,9 @@ public interface CredentialsMapper {
     @Select("SELECT * FROM CREDENTIALS where userId = #{userId}")
     List<Credentials> getAllCredentials(Long userId);
 
+    @Select("SELECT * FROM CREDENTIALS where userId = #{userId} and credentialId = #{credentialId}")
+    Credentials getCredentialsById(Long credentialId, Long userId);
+
     @Insert("INSERT INTO CREDENTIALS(url, username, key, password, userId) VALUES (" +
             "#{url}, #{username}, #{key}, #{password}, #{userId})")
     @Options(useGeneratedKeys = true, keyProperty = "credentialId")
@@ -18,7 +21,6 @@ public interface CredentialsMapper {
 
     @Delete("DELETE FROM CREDENTIALS WHERE credentialId = #{credentialId}")
     void deleteCredentialById(Long credentialId);
-
 
     @Update("UPDATE CREDENTIALS " +
             "SET url = #{url}, key = #{key}, password = #{password} WHERE credentialId = #{credentialId}")

@@ -41,6 +41,10 @@ public class CredentialsService {
         return encryptionService.decryptValue(credential.getPassword(), credential.getKey());
     }
 
+    public Credentials getCredentialsById(Long credintialId, String username){
+        return credentialMapper.getCredentialsById(credintialId, userMapper.getUserId(username));
+    }
+
     public int updateCredential(Credentials credential){
         String encodedSalt = salt();
         credential.setKey(encodedSalt);

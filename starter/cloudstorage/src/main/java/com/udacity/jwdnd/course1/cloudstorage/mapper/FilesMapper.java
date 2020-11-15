@@ -12,8 +12,11 @@ public interface FilesMapper {
     @Options(useGeneratedKeys = true, keyProperty = "fileId")
     int insertFile(Files file);
 
-    @Select("SELECT * FROM FILES WHERE fileId = #{fileId}")
-    Files getFileById(Long fileId);
+    @Select("SELECT * FROM FILES WHERE fileId = #{fileId} and userId = #{userId}")
+    Files getFileByFileId(Long fileId, Long userId);
+
+    @Select("SELECT * FROM FILES WHERE userId = #{userId}")
+    Files getFileByUserId(Long userId);
 
     @Select("SELECT * FROM FILES where userId = #{userId}")
     List<Files> getAllFiles(Long userId);

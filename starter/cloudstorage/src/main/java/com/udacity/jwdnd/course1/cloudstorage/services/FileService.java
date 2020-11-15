@@ -20,6 +20,10 @@ public class FileService {
         this.userMapper = userMapper;
     }
 
+    public boolean isFilenameAvailable(String username) {
+        return filesMapper.getFileByUserId(userMapper.getUserId(username)) == null;
+    }
+
     public int createNewFile(String username, MultipartFile uploadFile){
         Long size = uploadFile.getSize();
         Files file = new Files();
@@ -40,9 +44,8 @@ public class FileService {
         return -1;
     }
 
-    public Files getFileById(Long fileId){
-        return filesMapper.getFileById(fileId);
-    }
+    public Files getFileByUserId(String username) {
+        return filesMapper.getFileByUserId(userMapper.getUserId(username));}
 
     public void deleteFile(Long fileId){
         filesMapper.delete(fileId);

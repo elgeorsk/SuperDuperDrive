@@ -17,13 +17,17 @@
             </a>
         </div>
         <div class="container justify-content-center w-50 p-3">
-            <div th:if="${param.success}" class="alert alert-success fill-parent">
+            <div th:if="${success}" class="alert alert-success fill-parent">
                 <h1 class="display-5"><span><i class="fas fa-check-circle"></i></span> Success</h1>
-                <span>Your changes were successfully saved. Click <a th:href="@{/home}">here</a> to continue. Page redirects after 3 seconds.</span>
+                <span th:text="${successMsg}"></span><span> Click <a th:href="@{/home}">here</a> to continue. Page redirects after 3 seconds.</span>
+            </div>
+            <div th:if="${error}" class="alert alert-danger fill-parent">
+                <h1 class="display-5"><span><i class="fas fa-times"></i></span> Error</h1>
+                <span th:text="${errorMsg}"></span><span> Click <a th:href="@{/home}">here</a> to continue. Page redirects after 3 seconds.</span>
             </div>
             <div th:if="${param.error}" class="alert alert-danger fill-parent">
                 <h1 class="display-5"><span><i class="fas fa-times"></i></span> Error</h1>
-                <span>Your changes were not saved. Click <a th:href="@{/home}">here</a> to continue. Page redirects after 3 seconds.</span>
+                <span>Access denied! Click <a th:href="@{/home}">here</a> to continue. Page redirects after 3 seconds.</span>
             </div>
         </div>
         <script type="text/javascript">setTimeout(function () {window.location = "/home";}, 3000);</script>
