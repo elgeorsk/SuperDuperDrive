@@ -154,6 +154,7 @@ public class HomeController {
         } else {
             credentialService.createNewCredential(auth.getName(), credential);
         }
+        activeTab = "credentials";
         model.addAttribute("success", true);
         model.addAttribute("successMsg", "Your credential was successfully saved.");
         return "result";
