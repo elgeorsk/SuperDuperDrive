@@ -1,12 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
-import com.udacity.jwdnd.course1.cloudstorage.mapper.CredentialsMapper;
-import com.udacity.jwdnd.course1.cloudstorage.mapper.FilesMapper;
-import com.udacity.jwdnd.course1.cloudstorage.mapper.NotesMapper;
-import com.udacity.jwdnd.course1.cloudstorage.mapper.UsersMapper;
 import com.udacity.jwdnd.course1.cloudstorage.pages.HomePage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.LoginPage;
-import com.udacity.jwdnd.course1.cloudstorage.pages.ResultPage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.SignupPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
@@ -14,12 +9,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -85,6 +78,14 @@ public class CloudStorageApplicationTests {
 		}
 	}
 
+	public boolean checkFileExists(File file){
+		return file.exists();
+	}
+
+	public boolean deleteFile(File file){
+		return file.delete();
+	}
+
 	@Test
 	@Order(1)
 	public void signUpUser() throws InterruptedException {
@@ -103,14 +104,6 @@ public class CloudStorageApplicationTests {
 
 		homePage.getLogoutButton().click();
 		Assertions.assertEquals("Login - Super Duper Drive", driver.getTitle());
-	}
-
-	public boolean checkFileExists(File file){
-		return file.exists();
-	}
-
-	public boolean deleteFile(File file){
-		return file.delete();
 	}
 
 	@Test
