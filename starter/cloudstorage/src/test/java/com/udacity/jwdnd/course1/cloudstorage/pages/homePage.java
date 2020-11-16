@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class homePage {
+public class HomePage {
 
     @FindBy(id = "logout")
     private WebElement logoutButton;
@@ -82,7 +82,7 @@ public class homePage {
     @FindBy(id = "save-credential")
     private WebElement saveCredentialModalButton;
 
-    public homePage(WebDriver webDriver) {
+    public HomePage(WebDriver webDriver) {
         PageFactory.initElements(webDriver, this);
     }
 
