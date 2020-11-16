@@ -190,7 +190,11 @@
                 </div>
             </div>
         </div>
-
+        <footer class="container footer" style="margin-top: 5em;">
+            <div class="container" style="border-top: 1px solid #dee2e6;">
+                <span class="text-muted"><span th:text="${firstname}"></span> <span th:text="${lastname}"></span> - Spring Boot Basics</span>
+            </div>
+        </footer>
         <script th:src="@{/js/jquery-slim.min.js}"></script>
         <script th:src="@{/js/popper.min.js}"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>

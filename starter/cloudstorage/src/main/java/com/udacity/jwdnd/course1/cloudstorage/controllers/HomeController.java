@@ -38,6 +38,8 @@ public class HomeController {
     public String getHomePage(Authentication auth, Model model) {
         //Get logged-in username
         model.addAttribute("username", auth.getName());
+        model.addAttribute("firstname", userService.getUser(auth.getName()).getFirstname());
+        model.addAttribute("lastname", userService.getUser(auth.getName()).getLastname());
         //Get all files
         model.addAttribute("allFiles", fileService.getAllFiles(auth.getName()));
         //Get all Notes
