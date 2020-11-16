@@ -1,6 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
-import com.udacity.jwdnd.course1.cloudstorage.pages.HomePage;
+import com.udacity.jwdnd.course1.cloudstorage.pages.HomeCloudStoragePage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.LoginPage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.SignupPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -28,7 +28,7 @@ public class CloudStorageApplicationTests {
 
 	private LoginPage loginPage;
 	private SignupPage signupPage;
-	private HomePage homePage;
+	private HomeCloudStoragePage homePage;
 
 	// User data
 	private String firstname = "Selenium";
@@ -100,7 +100,7 @@ public class CloudStorageApplicationTests {
 		loginPage = new LoginPage(driver);
 		loginPage.login(username, password);
 
-		homePage = new HomePage(driver);
+		homePage = new HomeCloudStoragePage(driver);
 
 		homePage.getLogoutButton().click();
 		Assertions.assertEquals("Login - Super Duper Drive", driver.getTitle());
@@ -114,7 +114,7 @@ public class CloudStorageApplicationTests {
 		loginPage = new LoginPage(driver);
 		loginPage.login(username, password);
 
-		homePage = new HomePage(driver);
+		homePage = new HomeCloudStoragePage(driver);
 		homePage.getNavFilesTab().click();
 		Thread.sleep(2000);
 
@@ -155,7 +155,7 @@ public class CloudStorageApplicationTests {
 		loginPage = new LoginPage(driver);
 		loginPage.login(username, password);
 
-		homePage = new HomePage(driver);
+		homePage = new HomeCloudStoragePage(driver);
 		homePage.getNavNotesTab().click();
 		Thread.sleep(2000);
 
@@ -212,7 +212,7 @@ public class CloudStorageApplicationTests {
 		loginPage = new LoginPage(driver);
 		loginPage.login(username, password);
 
-		homePage = new HomePage(driver);
+		homePage = new HomeCloudStoragePage(driver);
 		homePage.getNavCredentialsTab().click();
 		Thread.sleep(2000);
 
